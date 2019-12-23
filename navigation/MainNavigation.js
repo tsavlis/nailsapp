@@ -18,7 +18,6 @@ const Tab = createBottomTabNavigator();
 const AppStack = createStackNavigator();
 
 function getHeaderTitle(route) {
-  console.log(route);
   const routeName = route.params ? route.params.categoryTitle : "Categories";
   return routeName;
 }
