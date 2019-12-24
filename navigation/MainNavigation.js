@@ -106,11 +106,15 @@ const HomeTabNavigator = () => (
           iconName = "ios-star";
         } else if (route.name === "Profile") {
           iconName = "ios-person";
+        } else if (route.name === "Search") {
+          iconName = "ios-search";
         }
         return <Ionicons name={iconName} size={23} color={color} />;
       }
     })}
+    initialRouteName="Search"
   >
+    <Tab.Screen name="Search" component={StartupScreen} />
     <Tab.Screen name="Categories" component={CategoriesStack} />
     <Tab.Screen name="Favorites" component={FavoriteStackNav} />
     <Tab.Screen name="Profile" component={AuthScreen} />

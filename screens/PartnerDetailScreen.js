@@ -40,7 +40,7 @@ const PartnerDetailScreen = props => {
   }, [currentPartnerisFavorite]);
 
   return (
-    <ScrollView>
+    <ScrollView style={styles.screen} contentContainerStyle={styles.content}>
       <Image source={{ uri: selectedPartner.imageUrl }} style={styles.image} />
       <View style={styles.details}>
         <DefaultText>{selectedPartner.firstName}</DefaultText>
@@ -60,6 +60,12 @@ const PartnerDetailScreen = props => {
 };
 
 const styles = StyleSheet.create({
+  content: {
+    backgroundColor: "lightgray"
+  },
+  screen: {
+    backgroundColor: "white"
+  },
   image: {
     width: "100%",
     height: 200
