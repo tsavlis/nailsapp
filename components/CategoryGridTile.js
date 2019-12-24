@@ -13,23 +13,17 @@ import {
 import Card from "./Card";
 const SCREEN_HEIGHT = Math.round(Dimensions.get("window").height);
 const CategoryGridTile = props => {
-  let TouchableCmp = TouchableOpacity;
-
-  if (Platform.OS === "android" && Platform.Version >= 21) {
-    TouchableCmp = TouchableNativeFeedback;
-  }
-
   return (
     <Card style={{ ...styles.screen, ...props.style }}>
       <View>
-        <TouchableCmp onPress={props.onSelect}>
+        <TouchableOpacity onPress={props.onSelect}>
           <ImageBackground
             source={{ uri: props.imageUrl }}
             style={{ ...styles.container }}
           >
             <Text style={styles.title}>{props.title}</Text>
           </ImageBackground>
-        </TouchableCmp>
+        </TouchableOpacity>
       </View>
     </Card>
   );

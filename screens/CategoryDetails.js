@@ -24,11 +24,7 @@ const CategoryDetails = props => {
   }
 
   return (
-    <PartnerList
-      listData={displayedPartners}
-      navigation={props.navigation}
-      header={selectedCategory.title}
-    />
+    <PartnerList listData={displayedPartners} header={selectedCategory.title} />
   );
 };
 

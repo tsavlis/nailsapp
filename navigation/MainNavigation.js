@@ -9,14 +9,14 @@ import AuthScreen from "../screens/AuthScreen";
 import CategoryDetails from "../screens/CategoryDetails";
 import CategoriesScreen from "../screens/CategoriesScreen";
 import PartnerDetailScreen from "../screens/PartnerDetailScreen";
-
+import FavoritesScreen from "../screens/FavoritesScreen";
 import Colors from "../constants/Colors";
 import { Ionicons } from "@expo/vector-icons";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 const AppStack = createStackNavigator();
-
+const FavoriteStack = createStackNavigator();
 function getHeaderTitle(route) {
   const routeName = route.params ? route.params.categoryTitle : "Categories";
   return routeName;
@@ -57,7 +57,7 @@ const CategoriesStack = ({ navigation, route }) => {
         name="Details"
         component={CategoryDetails}
         options={({ route }) => ({
-          title: getHeaderTitle(route)
+          title: "Select A Partner"
           // headerShown: shouldheaderBeShown(route)
         })}
       />
@@ -65,7 +65,7 @@ const CategoriesStack = ({ navigation, route }) => {
         name="PartnerDetailScreen"
         component={PartnerDetailScreen}
         options={({ route }) => ({
-          title: getHeaderTitle(route),
+          title: "Partner Details",
           headerRight: () => (
             <Ionicons
               size={23}
@@ -101,21 +101,64 @@ const HomeTabNavigator = () => (
       tabBarIcon: ({ color, size }) => {
         let iconName;
         if (route.name === "Categories") {
-          iconName = "ios-home";
+          iconName = "ios-list";
         } else if (route.name === "Favorites") {
           iconName = "ios-star";
         } else if (route.name === "Profile") {
-          iconName = "ios-settings";
+          iconName = "ios-person";
         }
         return <Ionicons name={iconName} size={23} color={color} />;
       }
     })}
   >
     <Tab.Screen name="Categories" component={CategoriesStack} />
-    <Tab.Screen name="Favorites" component={StartupScreen} />
+    <Tab.Screen name="Favorites" component={FavoriteStackNav} />
     <Tab.Screen name="Profile" component={AuthScreen} />
   </Tab.Navigator>
 );
+
+const FavoriteStackNav = ({ navigation, route }) => {
+  return (
+    <FavoriteStack.Navigator
+      headerMode="float"
+      animation="fade"
+      screenOptions={{
+        gestureEnabled: true,
+        gestureDirection: "horizontal",
+        cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+        headerStyle: {
+          backgroundColor: Colors.accent
+        },
+        headerTitleStyle: { color: "white", fontFamily: "open-sans-bold" },
+        headerTintColor: "#fff"
+      }}
+    >
+      <FavoriteStack.Screen name="Favorites" component={FavoritesScreen} />
+      <FavoriteStack.Screen
+        name="PartnerDetailScreen"
+        component={PartnerDetailScreen}
+        options={({ route }) => ({
+          title: getHeaderTitle(route),
+          headerTitleStyle: { maxWidth: 300, fontFamily: "open-sans" },
+          headerRight: () => (
+            <Ionicons
+              size={23}
+              color={"white"}
+              name={route.params.favs ? "ios-star-outline" : "ios-star"}
+              onPress={() => {
+                route.params.handler();
+              }}
+            />
+          ),
+          headerRightContainerStyle: {
+            marginRight: 20
+          }
+          // headerShown: shouldheaderBeShown(route)
+        })}
+      />
+    </FavoriteStack.Navigator>
+  );
+};
 
 const AppNavigator = () => {
   return (
@@ -136,46 +179,3 @@ const AppNavigator = () => {
 };
 
 export default AppNavigator;
-
-// const FavoriteStackNav = ({ navigation, route }) => {
-//   return (
-//     <FavoriteStack.Navigator
-//       headerMode="float"
-//       animation="fade"
-//       screenOptions={{
-//         gestureEnabled: true,
-//         gestureDirection: "horizontal",
-//         cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
-//         headerStyle: {
-//           backgroundColor: Colors.accent
-//         },
-//         headerTitleStyle: { color: "white", fontFamily: "open-sans-bold" },
-//         headerTintColor: "#fff"
-//       }}
-//     >
-//       <FavoriteStack.Screen name="Favorites" component={FavoritesScreen} />
-//       <FavoriteStack.Screen
-//         name="MealDetailScreen"
-//         component={MealDetailScreen}
-//         options={({ route }) => ({
-//           title: getHeaderTitle(route),
-//           headerTitleStyle: { maxWidth: 300, fontFamily: "open-sans" },
-//           headerRight: () => (
-//             <Ionicons
-//               size={23}
-//               color={"white"}
-//               name={route.params.favs ? "ios-star-outline" : "ios-star"}
-//               onPress={() => {
-//                 route.params.handler();
-//               }}
-//             />
-//           ),
-//           headerRightContainerStyle: {
-//             marginRight: 20
-//           }
-//           // headerShown: shouldheaderBeShown(route)
-//         })}
-//       />
-//     </FavoriteStack.Navigator>
-//   );
-// };

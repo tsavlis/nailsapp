@@ -4,7 +4,6 @@ import { useSelector } from "react-redux";
 
 const AuthScreen = props => {
   const partners = useSelector(state => state.partners);
-  console.log(partners);
   return (
     <View style={styles.screen}>
       <Text>AuthScreen </Text>

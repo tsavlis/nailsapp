@@ -3,8 +3,11 @@ import { StyleSheet, View, StatusBar } from "react-native";
 
 import { CATEGORIES } from "../data/dummy-data";
 import CategoryGridTile from "../components/CategoryGridTile";
+import { useNavigation } from "@react-navigation/native";
 
 const CategoriesScreen = props => {
+  const navigation = useNavigation();
+
   return (
     <React.Fragment>
       <View style={styles.screen}>
@@ -14,9 +17,8 @@ const CategoriesScreen = props => {
               key={item.id}
               title={item.title}
               imageUrl={item.imageUrl}
-              navigation={props.navigation}
               onSelect={() => {
-                props.navigation.navigate("Details", {
+                navigation.navigate("Details", {
                   categoryId: item.id,
                   categoryTitle: item.title
                 });

@@ -2,8 +2,7 @@ import React, { useEffect, useCallback } from "react";
 import { ScrollView, View, Image, Text, StyleSheet } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 import DefaultText from "../components/DefaultText";
-import { Ionicons } from "@expo/vector-icons";
-import { CATEGORIES } from "../data/dummy-data";
+import { toggleFavorite } from "../store/actions/partners.action";
 
 const ListItem = props => {
   return (
@@ -14,28 +13,31 @@ const ListItem = props => {
 };
 
 const PartnerDetailScreen = props => {
+  const { navigation, route } = props;
+
   const availablePartners = useSelector(state => state.partners.partners);
   const partnerId = props.route.params.partnerId;
-  // const currentMealIsFavorite = useSelector(state =>
-  //   state.meals.favoriteMeals.some(meal => meal.id === mealId)
-  // );
+  const currentPartnerisFavorite = useSelector(state =>
+    state.partners.favoritePartners.some(partner => partner.id === partnerId)
+  );
   const selectedPartner = availablePartners.find(
     partner => partner.id === partnerId
   );
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
+  const toggleFavHandle = useCallback(() => {
+    dispatch(toggleFavorite(partnerId));
+  }, [dispatch, partnerId]);
 
-  // const toggleFavoriteHandler = useCallback(() => {
-  //   dispatch(toggleFavorite(mealId));
-  // }, [dispatch, mealId]);
-
-  // useEffect(() => {
-  //   // props.navigation.setParams({ mealTitle: selectedPartner.title });
-  //   props.navigation.setParams({ toggleFav: toggleFavoriteHandler });
-  // }, [toggleFavoriteHandler]);
-
-  // useEffect(() => {
-  //   props.navigation.setParams({ isFav: currentMealIsFavorite });
-  // }, [currentMealIsFavorite]);
+  useEffect(() => {
+    navigation.setParams({
+      handler: toggleFavHandle
+    });
+  }, [toggleFavHandle]);
+  useEffect(() => {
+    navigation.setParams({
+      favs: currentPartnerisFavorite
+    });
+  }, [currentPartnerisFavorite]);
 
   return (
     <ScrollView>
@@ -55,27 +57,6 @@ const PartnerDetailScreen = props => {
       ))} */}
     </ScrollView>
   );
-};
-
-PartnerDetailScreen.navigationOptions = navigationData => {
-  const catId = props.route.params.categoryId;
-  const selectedCategory = CATEGORIES.find(cat => cat.id === catId);
-
-  return {
-    headerTitle: selectedCategory.title,
-    headerRight: (
-      <Ionicons
-        title="md-home"
-        name={"md-home"}
-        onPress={() => {
-          navigationData.navigation.popToTop();
-        }}
-        color="white"
-        size={26}
-      />
-    ),
-    headerRightContainerStyle: { marginRight: 20 }
-  };
 };
 
 const styles = StyleSheet.create({

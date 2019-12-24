@@ -1,10 +1,13 @@
 import React from "react";
 import { View, FlatList, StyleSheet } from "react-native";
 import { useSelector } from "react-redux";
+import { useNavigation } from "@react-navigation/native";
 
 import PartnerItem from "./PartnerItem";
 
 const PartnerList = props => {
+  const navigation = useNavigation();
+
   //const favoriteMeals = useSelector(state => state.meals.favoriteMeals);
   const renderParnterItem = itemData => {
     return (
@@ -15,7 +18,7 @@ const PartnerList = props => {
         lastName={itemData.item.lastName}
         area={itemData.item.area}
         onSelectPartner={() => {
-          props.navigation.navigate("PartnerDetailScreen", {
+          navigation.navigate("PartnerDetailScreen", {
             partnerId: itemData.item.id,
             categoryId: itemData.item.categoryId,
             categoryTitle: props.header
@@ -27,12 +30,7 @@ const PartnerList = props => {
 
   return (
     <View style={styles.list}>
-      <FlatList
-        data={props.listData}
-        keyExtractor={(item, index) => item.id}
-        renderItem={renderParnterItem}
-        style={{ width: "100%" }}
-      />
+      <FlatList data={props.listData} renderItem={renderParnterItem} />
     </View>
   );
 };
