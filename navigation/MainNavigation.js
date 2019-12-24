@@ -126,11 +126,19 @@ const FavoriteStackNav = ({ navigation, route }) => {
         gestureEnabled: true,
         gestureDirection: "horizontal",
         cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+        // headerStyle: { backgroundColor: Colors.accent },
+        //headerTintColor: "#fff"
         headerStyle: {
-          backgroundColor: Colors.accent
+          backgroundColor: Platform.OS === "android" ? Colors.primaryColor : ""
         },
-        headerTitleStyle: { color: "white", fontFamily: "open-sans-bold" },
-        headerTintColor: "#fff"
+        headerTitleStyle: {
+          fontFamily: "open-sans-bold"
+        },
+        headerBackTitleStyle: {
+          fontFamily: "open-sans"
+        },
+        headerTintColor:
+          Platform.OS === "android" ? "white" : Colors.primaryColor
       }}
     >
       <FavoriteStack.Screen name="Favorites" component={FavoritesScreen} />
