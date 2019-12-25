@@ -3,11 +3,13 @@ import { ScrollView, View, Image, Text, StyleSheet } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 import DefaultText from "../components/DefaultText";
 import { toggleFavorite } from "../store/actions/partners.action";
+import Colors from "../constants/Colors";
+import { Rating, AirbnbRating } from "react-native-elements";
 
 const ListItem = props => {
   return (
     <View style={styles.listItem}>
-      <DefaultText>{props.children}</DefaultText>
+      <DefaultText style={{}}>{props.children}</DefaultText>
     </View>
   );
 };
@@ -47,12 +49,19 @@ const PartnerDetailScreen = props => {
         <DefaultText>{selectedPartner.lastName.toUpperCase()}</DefaultText>
         <DefaultText>{selectedPartner.area.toUpperCase()}</DefaultText>
       </View>
-      {/* <Text style={styles.title}>Rating</Text>
-      {selectedPartner.ingredients.map(ingredient => (
-        <ListItem key={ingredient}>{ingredient}</ListItem>
-      ))}
-      <Text style={styles.title}>Steps</Text>
-      {selectedPartner.steps.map(step => (
+
+      <Text style={styles.title}>Υπηρεσίες</Text>
+      {selectedPartner.ingredients
+        ? selectedPartner.ingredients.map(ingredient => (
+            <ListItem key={ingredient.price}>
+              {ingredient.title} {ingredient.price}$
+            </ListItem>
+          ))
+        : null}
+      <Text style={styles.title}>Αξιολογήσεις</Text>
+      <AirbnbRating count={5} defaultRating={5} size={20} />
+
+      {/* {selectedPartner.steps.map(step => (
         <ListItem key={step}>{step}</ListItem>
       ))} */}
     </ScrollView>
@@ -61,7 +70,7 @@ const PartnerDetailScreen = props => {
 
 const styles = StyleSheet.create({
   content: {
-    backgroundColor: "lightgray"
+    backgroundColor: "white"
   },
   screen: {
     backgroundColor: "white"
@@ -78,13 +87,14 @@ const styles = StyleSheet.create({
   title: {
     fontFamily: "open-sans-bold",
     fontSize: 22,
-    textAlign: "center"
+    textAlign: "center",
+    marginVertical: 20
   },
   listItem: {
     marginVertical: 10,
     marginHorizontal: 20,
-    borderColor: "#ccc",
-    borderWidth: 1,
+    borderBottomColor: "#ccc",
+    borderBottomWidth: 1,
     padding: 10
   }
 });

@@ -27,7 +27,14 @@ export const PARTNERS = [
     "tns",
     "tsav",
     "gerakas",
-    4.3
+    4.3,
+    [
+      { title: "Μανικιούρ απλό", price: 10, description: "asdasd asd as" },
+      { title: "Μανικιούρ special", price: 12, description: "asdasd asd as" },
+      { title: "Πεντικιούρ απλό", price: 14, description: "asdasd asd as" },
+      { title: "Πεντικιούρ special", price: 16, description: "asdasd asd as" }
+    ],
+    [31, 43, 34, 22, 11]
   ),
   new Partner(
     "p2",
@@ -54,6 +61,12 @@ export const PARTNERS = [
     "mike",
     "rogers",
     "xolarxos",
-    2.3
+    2.3,
+    [
+      { title: "Μανικιούρ απλό", price: 10, description: "asdasd asd as" },
+      { title: "Μανικιούρ special", price: 12, description: "asdasd asd as" },
+      { title: "Πεντικιούρ απλό", price: 14, description: "asdasd asd as" },
+      { title: "Πεντικιούρ special", price: 16, description: "asdasd asd as" }
+    ]
   )
 ];

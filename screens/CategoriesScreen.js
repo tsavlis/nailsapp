@@ -4,6 +4,7 @@ import { StyleSheet, View, StatusBar } from "react-native";
 import { CATEGORIES } from "../data/dummy-data";
 import CategoryGridTile from "../components/CategoryGridTile";
 import { useNavigation } from "@react-navigation/native";
+import Colors from "../constants/Colors";
 
 const CategoriesScreen = props => {
   const navigation = useNavigation();
@@ -36,7 +37,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "space-evenly",
     alignItems: "center",
-    backgroundColor: "lightgray",
+    backgroundColor: Colors.backgroundColor,
     paddingTop: StatusBar.currentHeight
   }
 });

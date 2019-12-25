@@ -2,8 +2,9 @@ import React from "react";
 import { View, FlatList, StyleSheet } from "react-native";
 import { useSelector } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
-
+import Colors from "../constants/Colors";
 import PartnerItem from "./PartnerItem";
+import Modal from "./Modal";
 
 const PartnerList = props => {
   const navigation = useNavigation();
@@ -30,7 +31,12 @@ const PartnerList = props => {
 
   return (
     <View style={styles.list}>
-      <FlatList data={props.listData} renderItem={renderParnterItem} />
+      <Modal PartnerResults={props.listData.length} />
+      <FlatList
+        data={props.listData}
+        renderItem={renderParnterItem}
+        contentContainerStyle={{ padding: 15 }}
+      />
     </View>
   );
 };
@@ -40,8 +46,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    padding: 15,
-    backgroundColor: "lightgray"
+    backgroundColor: Colors.backgroundColor
   }
 });
 

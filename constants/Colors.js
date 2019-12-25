@@ -1,4 +1,5 @@
 export default {
   primaryColor: "#c28287",
-  accentColor: "white"
+  accentColor: "white",
+  backgroundColor: "lightgray"
 };
